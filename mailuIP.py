@@ -30,15 +30,24 @@ def sendMail(ip):
     to_addr = conf['receivers']
     smtp_server = conf['SMTPServer']
 
-    msg = MIMEText('hello, send by Python...', 'plain', 'utf-8')
-    msg['From'] = _format_addr(u'创新大厦A区305外网IP变化 <%s>' % from_addr)
+    msg = MIMEText('hello, 创新大厦A区305外网IP已变化。\nsend by 创新大厦的 Python...', 'plain', 'utf-8')
+    msg['From'] = _format_addr(u' <%s>' % from_addr)
     msg['To'] = _format_addr(u'IP管理员 <%s>' % to_addr)
-    text = u'新 IP ：' + ip
-    msg['Subject'] = Header(text, 'utf-8').encode()
+    title = u'创新大厦IP : ' + ip
+    msg['Subject'] = Header(title, 'utf-8').encode()
 
-    server = smtplib.SMTP(smtp_server, 25)
-    server.set_debuglevel(1)
-    server.connect(smtp_server, 587)
+    '''
+    port即SMTP服务器端口，一般情况下，25为明文通信，587为加密通信。
+    部分SMTP服务器，如Outlook邮箱，不支持明文通信,且使用starttls加密方式。
+
+    user和password即登陆SMTP服务器的用户名和密码，
+    一般情况下，其与你登录该邮箱时的用户名和密码相同，
+    但有些服务器有不同，如QQ邮箱使用QQ号和邮箱授权码登录，163同理。
+    '''
+    server = smtplib.SMTP(smtp_server, 587)
+    server.set_debuglevel(False)
+    server.starttls()
+    # server.connect(smtp_server, 587)
     server.ehlo()
     server.login(from_addr, password)
     server.sendmail(from_addr, [to_addr], msg.as_string())
