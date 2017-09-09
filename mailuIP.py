@@ -18,7 +18,7 @@ def _format_addr(s):
 
 def getConf():
     # crontab needs absolute path
-    abspath = '/home/jay/projects/mailuIP/conf.json'
+    abspath = '/path/to/your/conf.json'
     with open(abspath, 'r') as f:
         conf = json.load(f)
     return conf
@@ -73,7 +73,7 @@ def getIP():
 
 def compareIP(ip):
     # crontab needs absolute path
-    abspath = '/home/jay/projects/mailuIP/ip.txt'
+    abspath = '/path/to/your/ip.txt'
     with open(abspath, 'r') as f:
         old_ip = f.readlines()
         #print 'old_ip:', old_ip
