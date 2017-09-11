@@ -35,11 +35,11 @@ def sendMail(ip_list):
     IPmsg = ''
     for ind, ip in enumerate(ip_list):
         IPmsg += 'IP ' + str(ind) + ' : ' + ip# + '\n'
-    msg = MIMEText('hello, 创新大厦A区305外网IP已变化。\n' + IPmsg +
-            'Sent by 创新大厦的 Python...', 'plain', 'utf-8')
+    msg = MIMEText('hello, **外网IP已变化。\n' + IPmsg +
+            'Sent by **的 Python...', 'plain', 'utf-8')
     # print IPmsg
     msg['From'] = _format_addr(u'IP管理员 <%s>' % from_addr)
-    msg['To'] = _format_addr(u'创新大厦用户 <%s>' % to_addr)
+    msg['To'] = _format_addr(u'**用户 <%s>' % to_addr)
 
     title = u'创新大厦 IP'
     msg['Subject'] = Header(title, 'utf-8').encode()
